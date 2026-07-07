@@ -1,0 +1,134 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+/* When image is present, move content slightly higher */
+.compact {
+  padding-top: calc(48px + 1.5rem);
+}
+
+.pageTitle {
+  margin: 0 auto;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  align-self: flex-start;
+}
+
+.pageSub {
+  margin: 0 auto;
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+  align-self: flex-start;
+  margin-top: -0.75rem;
+}
+
+/* ─── Dropzone ──────────────────────────────────────────────────── */
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: min(560px, 100%);
+  min-height: 360px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  cursor: pointer;
+  text-align: center;
+  padding: 3rem 2rem;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.dropzone:hover,
+.dropzone:focus-visible {
+  border-color: var(--color-primary);
+  background: rgba(0, 229, 255, 0.03);
+  outline: none;
+}
+
+.dropzoneDragging {
+  border-color: var(--color-primary);
+  background: rgba(0, 229, 255, 0.06);
+  box-shadow: var(--shadow-glow);
+}
+
+.dropzoneIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(0, 229, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.dropzoneTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.dropzoneSub {
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+}
+
+.dropzoneLink {
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.dropzoneHint {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  margin-top: 0.25rem;
+}
+
+/* ─── Change image button ───────────────────────────────────────── */
+.changeBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.4rem 0;
+  transition: color var(--transition);
+}
+
+.changeBtn:hover {
+  color: var(--color-text);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .dropzone {
+    width: 20rem;
+  }
+  .card{
+    width: 20rem;
+  }
+}

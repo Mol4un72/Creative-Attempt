@@ -1,0 +1,220 @@
+.heroCardBlock{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+  animation: cardsBlur 2s ease 1.15s forwards;
+}
+
+.heroCard{
+  position:absolute;
+  width:clamp(120px,12vw,224px);
+  height:auto;
+  border-radius:12px;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.25));
+  transform:
+      translateY(-140vh)
+      rotate(var(--r));
+  animation:cardFall .55s cubic-bezier(.18,.82,.32,1) forwards;
+}
+
+/* ===========================================================
+   CARD POSITIONS
+=========================================================== */
+
+.card1{
+    --r:-18deg;
+    top:8%;
+    left:12%;
+    animation-delay:0.85s;
+}
+
+.card2{
+    --r:14deg;
+    top:58%;
+    left:8%;
+    animation-delay:0.83s;
+}
+
+.card3{
+    --r:12deg;
+    top:10%;
+    right:8%;
+    animation-delay:0.8s;
+}
+
+.card4{
+    --r:-16deg;
+    top:58%;
+    right:5%;
+    animation-delay:0.81s;
+}
+
+.card5{
+    --r:82deg;
+    top:0;
+    left:44%;
+    animation-delay:0.8s;
+}
+
+.card6{
+    --r:8deg;
+    top:58%;
+    left:46%;
+    animation-delay:0.82s;
+}
+
+@keyframes cardFall{
+    from{
+        transform:
+            translateY(-140vh)
+            rotate(var(--r));
+    }
+    to{
+        transform:
+            translateY(0)
+            rotate(var(--r));
+    }
+}
+
+@keyframes cardsBlur{
+    from{
+        filter:blur(0);
+    }
+    to{
+        filter:blur(10px);
+    }
+}
+
+@media (max-width: 1240px) {
+  .card1{
+    --r:-18deg;
+    top:8%;
+    left:12%;
+    animation-delay:0.85s;
+  }
+
+  .card2{
+    --r:14deg;
+    top:15%;
+    left:58%;
+    animation-delay:0.83s;
+  }
+
+  .card3{
+    --r:10deg;
+    top:38%;
+    left:8%;
+    animation-delay:0.8s;
+  }
+
+  .card4{
+    --r:-16deg;
+    top:48%;
+    right:7%;
+    animation-delay:0.81s;
+  }
+
+  .card5{
+    --r:82deg;
+    top:64%;
+    left:14%;
+    animation-delay:0.8s;
+  }
+
+  .card6{
+    --r:24deg;
+    top:75%;
+    left:55%;
+    animation-delay:0.82s;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card1{
+    --r:-18deg;
+    top:8%;
+    left:12%;
+    animation-delay:0.85s;
+  }
+
+  .card2{
+    --r:14deg;
+    top:15%;
+    left:58%;
+    animation-delay:0.83s;
+  }
+
+  .card3{
+    --r:10deg;
+    top:38%;
+    left:8%;
+    animation-delay:0.8s;
+  }
+
+  .card4{
+    --r:-16deg;
+    top:48%;
+    right:7%;
+    animation-delay:0.81s;
+  }
+
+  .card5{
+    --r:82deg;
+    top:64%;
+    left:14%;
+    animation-delay:0.8s;
+  }
+
+  .card6{
+    --r:24deg;
+    top:75%;
+    left:55%;
+    animation-delay:0.82s;
+  }
+}
+
+@media (max-width: 768px) {
+  .card1{
+    --r:-18deg;
+    top:8%;
+    left:12%;
+    animation-delay:0.85s;
+  }
+
+  .card2{
+    --r:14deg;
+    top:15%;
+    left:58%;
+    animation-delay:0.83s;
+  }
+
+  .card3{
+    --r:10deg;
+    top:38%;
+    left:8%;
+    animation-delay:0.8s;
+  }
+
+  .card4{
+    --r:-16deg;
+    top:48%;
+    right:7%;
+    animation-delay:0.81s;
+  }
+
+  .card5{
+    --r:82deg;
+    top:64%;
+    left:14%;
+    animation-delay:0.8s;
+  }
+
+  .card6{
+    --r:24deg;
+    top:75%;
+    left:55%;
+    animation-delay:0.82s;
+  }
+}

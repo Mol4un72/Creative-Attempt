@@ -1,0 +1,65 @@
+.container {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.modeSwitcher {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 9999px;
+  background: #f3f4f6;
+}
+
+.tab {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 0.85rem 1rem;
+  border-radius: 9999px;
+  color: #4b5563;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.tab:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.active {
+  background: #111827;
+  color: #ffffff;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.submitButton {
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.switchLink {
+  all: unset;
+  cursor: pointer;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.switchLink:hover {
+  text-decoration: underline;
+}

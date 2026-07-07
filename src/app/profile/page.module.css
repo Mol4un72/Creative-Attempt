@@ -1,0 +1,205 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ─── Profile Banner ────────────────────────────────────────────── */
+.profileBanner {
+  margin-top: 72px; /* header height */
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 5vw, 4rem);
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  flex-wrap: wrap;
+}
+
+/* Avatar */
+.avatarWrap {
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: clamp(128px, 10vw, 140px);
+  height: clamp(128px, 10vw, 140px);
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  border: 3px solid var(--color-border);
+}
+
+/* Info */
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  justify-content: center;
+}
+
+.nicknameRow {
+  display: flex;
+  align-items: center;
+}
+
+.nickname {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.settingsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--color-muted);
+  transition: background-color var(--transition), color var(--transition);
+  transform: translateY(clamp(0.125rem, 0.5vw, 0.25rem));
+}
+
+.settingsBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text);
+}
+
+.profileStats {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  flex-wrap: wrap;
+}
+
+.profileStats strong {
+  color: var(--color-text);
+}
+
+/* Achievements */
+.achievements {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(1rem, 4vw, 2rem);
+  flex-wrap: nowrap;
+  list-style: none;
+  margin-left: auto;
+  align-items: center;
+}
+
+.achievementItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.achievement {
+  width: clamp(56px, 6vw, 72px);
+  height: clamp(56px, 6vw, 72px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface-2);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.achievement:hover {
+  transform: translateY(-2px);
+}
+
+/* Rarity colours */
+.common    { border-color: rgba(160,160,160,0.5); }
+.uncommon  { border-color: rgba(77,172,77,0.7);   box-shadow: 0 0 10px rgba(77,172,77,0.2); }
+.rare      { border-color: rgba(66,133,244,0.7);  box-shadow: 0 0 10px rgba(66,133,244,0.2); }
+.legendary { border-color: rgba(255,170,0,0.8);   box-shadow: 0 0 14px rgba(255,170,0,0.35); }
+
+.achievementName {
+  font-size: 0.6875rem;
+  color: var(--color-muted);
+  text-align: center;
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── Art Section ───────────────────────────────────────────────── */
+.artSection {
+  padding: 0 clamp(1.25rem, 5vw, 4rem) 4rem;
+}
+
+.sectionTitle {
+  display: flex;
+  justify-content: center;
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 1.5rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .achievementItem:nth-child(n + 5) {
+    display: none;
+  }
+}
+
+@media (max-width:768px) {
+  .profileBanner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .profileInfo {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .avatarWrap {
+    flex-shrink: 0;
+  }
+
+  .achievements {
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+    margin-left: 0;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  .achievementItem:nth-child(n + 5) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .profileBanner {
+    flex-direction: column;
+  }
+
+  .profileInfo, .avatarWrap, .profileStats, .achievements  {
+    margin: 0 auto;
+  }
+
+  .achievementItem:nth-child(n + 5) {
+    display: none;
+  }
+
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+}

@@ -1,0 +1,98 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-bg);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  padding: calc(72px + 3rem) clamp(1.25rem, 5vw, 4rem) 4rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* ─── Aside (decorative images) ─────────────────────────────────── */
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+  width: 200px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  padding: 2rem 1.25rem;
+  align-self: stretch;
+}
+
+.asideImg {
+  width: 296px;
+  height: 216px;
+  border-radius: var(--radius-md);
+  opacity: 0.85;
+}
+
+/* ─── Form Panel ────────────────────────────────────────────────── */
+.formPanel {
+  flex: 1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: none;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: clamp(2rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.sub {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.65;
+  max-width: 380px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .main {
+    min-height: 100svh;
+    justify-content: center;
+  }
+
+  .aside {
+    display: none;
+  }
+
+  .formPanel {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+}
