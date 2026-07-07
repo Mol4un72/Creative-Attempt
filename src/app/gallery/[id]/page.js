@@ -1,22 +1,21 @@
-import Header from "../../../components/Header/Header";
 import Card from "../../../components/Card/Card";
 import Link from "next/link";
 import styles from "./page.module.css";
 
 /* Shared arts data */
 const arts = [
-  { id: 1,  name: "Gigachad",     price: 1000, endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 2,  name: "Pepe",         price: 500,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 3,  name: "Doge",         price: 750,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 4,  name: "Wojak",        price: 200,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 5,  name: "Nyan Cat",     price: 300,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 6,  name: "Shiba",        price: 900,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 7,  name: "Trollface",    price: 150,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 8,  name: "Rickroll",     price: 420,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 9,  name: "Drakeposting", price: 600,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 10, name: "Grumpy Cat",   price: 850,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 11, name: "Distracted",   price: 350,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
-  { id: 12, name: "Success Kid",  price: 450,  endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 1,  name: "Gigachad",     price: null,    endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 2,  name: "Pepe",         price: 500,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 3,  name: "Doge",         price: 750,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 4,  name: "Wojak",        price: 200,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 5,  name: "Nyan Cat",     price: 300,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 6,  name: "Shiba",        price: 900,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 7,  name: "Trollface",    price: 150,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 8,  name: "Rickroll",     price: 420,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 9,  name: "Drakeposting", price: 600,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 10, name: "Grumpy Cat",   price: 850,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 11, name: "Distracted",   price: 350,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
+  { id: 12, name: "Success Kid",  price: 450,     endsAt: "2026-07-05T18:30:00.000Z", image: "/img.png" },
 ];
 
 /* 🔥 REQUIRED for static export */
@@ -44,7 +43,6 @@ export default async function CardPage({ params }) {
   if (!art) {
     return (
       <div className={styles.page}>
-        <Header />
         <main className={styles.notFound}>
           <span className={styles.notFoundIcon}>😕</span>
           <h1 className={styles.notFoundTitle}>Artwork not found</h1>
@@ -61,7 +59,6 @@ export default async function CardPage({ params }) {
 
   return (
     <div className={styles.page}>
-      <Header />
       <main className={styles.main}>
         <Link href="/gallery" className={styles.backLink}>
           ← Back to Gallery

@@ -1,39 +1,27 @@
-/* ─── Base ──────────────────────────────────────────────────────── */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: clamp(170px, 20vw, 200px);
-
   gap: 0.5rem;
-
   border: none;
   border-radius: var(--radius-md);
-
   font-family: var(--font-sans);
   font-weight: 700;
-
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-
   position: relative;
   overflow: hidden;
-
   letter-spacing: 0.01em;
-
   transition:
     transform var(--transition),
     box-shadow var(--transition),
     filter var(--transition);
-
-  /* 🔥 КЛЮЧ: тепер висота реально адаптивна */
   height: clamp(42px, 5vw, 56px);
-
   padding-inline: clamp(1rem, 2.5vw, 2.4rem);
 }
 
-/* Shimmer sweep on hover */
 .button::after {
   content: '';
   position: absolute;
@@ -60,7 +48,7 @@
 
 /* ─── Variants ──────────────────────────────────────────────────── */
 
-/* PRIMARY — gradient fill with glow */
+/* PRIMARY */
 .primary {
   background: var(--color-primary);
   color: #000;
@@ -72,7 +60,7 @@
   filter: brightness(1.08);
 }
 
-/* SECONDARY — vivid bordered with glow on hover */
+/* SECONDARY */
 .secondary {
   background: transparent;
   color: var(--color-text);

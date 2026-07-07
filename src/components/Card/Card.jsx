@@ -14,11 +14,11 @@ import Button from "../Button/Button";
  */
 export default function Card({ art, variant = "default" }) {
   const { name, price, image } = art;
-  const hasMeta = price != null;
+  const hasMeta = Boolean(price);
   const isFull = variant === "full";
 
   return (
-    <article className={`${styles.card} ${styles[variant]}`}>
+    <article className={`${styles.card} ${styles[variant]} ${!hasMeta ? styles.noPrice : ""}`}>
       {/* Image preview */}
       <div className={styles.imageContainer}>
         <img src={image} alt={name} className={styles.image} crossOrigin="anonymous" />
@@ -26,7 +26,7 @@ export default function Card({ art, variant = "default" }) {
 
       {/* Card text and price */}
       <div className={styles.info}>
-        <p className={`${styles.name} ${!hasMeta ? styles.centerName : ""}`}>{name}</p>
+        <p className={styles.name}>{name}</p>
 
         {hasMeta && (
           <>
@@ -35,11 +35,11 @@ export default function Card({ art, variant = "default" }) {
               <span className={styles.price}>{price}$</span>
             </div>
           </>
-        )}
+        )} 
       </div>
 
       {/* Full variant action area */}
-      {isFull && (
+      {isFull && hasMeta && (
         <Button className={styles.buyBtn} type="button">
           Buy
         </Button>
