@@ -1,9 +1,5 @@
 import styles from "./Textarea.module.css";
 
-/**
- * Reusable Textarea component.
- * Forwards all native textarea attributes via rest props spread.
- */
 export default function Textarea({
   placeholder,
   label,

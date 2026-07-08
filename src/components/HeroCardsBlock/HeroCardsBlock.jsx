@@ -1,5 +1,3 @@
-// components/HeroCardBlock/HeroCardBlock.tsx
-
 import Image from "next/image";
 import styles from "./HeroCardsBlock.module.css";
 

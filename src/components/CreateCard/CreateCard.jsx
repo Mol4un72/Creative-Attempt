@@ -1,19 +1,8 @@
-"use client";
-
 import styles from "./CreateCard.module.css";
-import { useRef } from "react";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 
-/**
- * CreateCard — preview card shown on the /create page after an image is selected.
- * Extracts dominant colour from the uploaded image and uses it as the background.
- *
- * Props:
- *  - image: object URL of the uploaded file (string)
- */
 export default function CreateCard({ image }) {
-  const imgRef  = useRef(null);
 
   return (
     <section className={styles.card} aria-label="Artwork preview">
@@ -21,7 +10,6 @@ export default function CreateCard({ image }) {
       <div className={styles.imageContainer} >
         {image ? (
           <img
-            ref={imgRef}
             src={image}
             alt="Artwork preview"
             className={styles.image}

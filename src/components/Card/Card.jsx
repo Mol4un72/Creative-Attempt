@@ -1,24 +1,13 @@
-"use client";
-
 import styles from "./Card.module.css";
 import Button from "../Button/Button";
 
-/**
- * Card component — displays an artwork tile.
- *
- * Props:
- *  - art: { id, name, price, time, image }
- *  - variant: "default" | "full"
- *    • "default" → compact grid tile (links to detail page)
- *    • "full"    → expanded detail view with bet UI
- */
 export default function Card({ art, variant = "default" }) {
   const { name, price, image } = art;
-  const hasMeta = Boolean(price);
+  const hasPrice = Boolean(price);
   const isFull = variant === "full";
 
   return (
-    <article className={`${styles.card} ${styles[variant]} ${!hasMeta ? styles.noPrice : ""}`}>
+    <article className={`${styles.card} ${styles[variant]} ${!hasPrice ? styles.noPrice : ""}`}>
       {/* Image preview */}
       <div className={styles.imageContainer}>
         <img src={image} alt={name} className={styles.image} crossOrigin="anonymous" />
@@ -28,7 +17,7 @@ export default function Card({ art, variant = "default" }) {
       <div className={styles.info}>
         <p className={styles.name}>{name}</p>
 
-        {hasMeta && (
+        {hasPrice && (
           <>
             <hr className={styles.hr} />
             <div className={styles.details}>
@@ -39,7 +28,7 @@ export default function Card({ art, variant = "default" }) {
       </div>
 
       {/* Full variant action area */}
-      {isFull && hasMeta && (
+      {isFull && hasPrice && (
         <Button className={styles.buyBtn} type="button">
           Buy
         </Button>
