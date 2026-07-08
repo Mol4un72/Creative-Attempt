@@ -1,5 +1,6 @@
 /* ─── Base Card ─────────────────────────────────────────────────── */
 .card {
+  height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-md);
@@ -56,8 +57,8 @@
 }
 
 .full {
-  width: min(520px, 100%);
-  margin: 0 auto;
+  width: clamp(320px, 70vw, 544px);
+  height: auto;
 }
 
 /* ─── Image Container ───────────────────────────────────────────── */
@@ -81,7 +82,7 @@
 }
 
 /* Colour vignette overlay at bottom of image */
-.imageContainer::after {
+.full .imageContainer::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -115,10 +116,10 @@
   letter-spacing: -0.02em;
 }
 
-.centerName { text-align: center; }
-
 .hr {
+  margin:0 auto;
   border: none;
+  width: clamp(220px, 35vw, 320px);
   border-top: 1px solid var(--color-border);
 }
 
@@ -139,7 +140,17 @@
   background-clip: text;
 }
 
-/* ─── Bet Block (full only) ─────────────────────────────────────── */
+.noPrice .info {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noPrice .name {
+  font-size: 1.5rem;
+  text-align: center;
+}
 
 .full .price {
   font-size: 1.5rem;

@@ -55,3 +55,21 @@
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+.input_error {
+  border-color: #ef4444;
+}
+
+.input_error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
+
+.input_error::placeholder {
+  color: #ef4444;
+}
+
+.input_error:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+}

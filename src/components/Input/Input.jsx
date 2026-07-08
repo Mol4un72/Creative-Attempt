@@ -1,14 +1,11 @@
 import styles from "./Input.module.css";
 
-/**
- * Reusable Input component.
- * Forwards all native input attributes via rest props spread.
- */
 export default function Input({
   placeholder,
   type = "text",
   label,
   id,
+  variant,
   className = "",
   ...props
 }) {
@@ -22,7 +19,7 @@ export default function Input({
 
       <input
         id={id}
-        className={[styles.input, className].filter(Boolean).join(" ")}
+        className={[styles.input, styles[variant], className].filter(Boolean).join(" ")}
         type={type}
         placeholder={placeholder}
         {...props}

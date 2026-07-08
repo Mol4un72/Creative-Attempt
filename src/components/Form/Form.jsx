@@ -28,24 +28,33 @@ export default function Form({ initialMode = 'login' }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
   const isLogin = mode === 'login';
   const state = INITIAL_STATE[mode];
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!email || !password) {
-      alert('Please complete both fields.');
+    const nextErrors = {
+      email: !email,
+      password: !password,
+      confirmPassword: !isLogin ? !confirmPassword : false,
+    };
+
+    if (!email || !password || (!isLogin && !confirmPassword) || (!isLogin && password !== confirmPassword)) {
+      if (!isLogin && password && confirmPassword && password !== confirmPassword) {
+        nextErrors.confirmPassword = true;
+      }
+
+      setErrors(nextErrors);
       return;
     }
 
-    if (!isLogin && password !== confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-
-    console.log(mode === 'login' ? 'Login' : 'Register', { email, password });
-    alert(`${state.submitLabel} submitted (demo)`);
+    setErrors({ email: false, password: false, confirmPassword: false });
   };
 
   const handleModeChange = (selectedMode) => {
@@ -53,6 +62,7 @@ export default function Form({ initialMode = 'login' }) {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    setErrors({ email: false, password: false, confirmPassword: false });
   };
 
   return (
@@ -83,7 +93,11 @@ export default function Form({ initialMode = 'login' }) {
           type="email"
           placeholder={state.emailPlaceholder}
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          variant={errors.email ? 'input_error' : undefined}
+          onChange={(event) => {
+            setEmail(event.target.value);
+            if (errors.email) setErrors((prev) => ({ ...prev, email: false }));
+          }}
           autoComplete="email"
         />
 
@@ -93,7 +107,11 @@ export default function Form({ initialMode = 'login' }) {
           type="password"
           placeholder={state.passwordPlaceholder}
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          variant={errors.password ? 'input_error' : undefined}
+          onChange={(event) => {
+            setPassword(event.target.value);
+            if (errors.password) setErrors((prev) => ({ ...prev, password: false }));
+          }}
           autoComplete={isLogin ? 'current-password' : 'new-password'}
         />
 
@@ -104,7 +122,11 @@ export default function Form({ initialMode = 'login' }) {
             type="password"
             placeholder={state.confirmPlaceholder}
             value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
+            variant={errors.confirmPassword ? 'input_error' : undefined}
+            onChange={(event) => {
+              setConfirmPassword(event.target.value);
+              if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: false }));
+            }}
             autoComplete="new-password"
           />
         )}
