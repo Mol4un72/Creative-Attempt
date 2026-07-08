@@ -5,6 +5,7 @@ export default function Textarea({
   label,
   id,
   rows = 5,
+  variant,
   className = "",
   ...props
 }) {
@@ -18,9 +19,10 @@ export default function Textarea({
 
       <textarea
         id={id}
-        className={[styles.textarea, className].filter(Boolean).join(" ")}
+        className={[styles.textarea, styles[variant], className].filter(Boolean).join(" ")}
         placeholder={placeholder}
         rows={rows}
+        style={{ resize: "none" }}
         {...props}
       />
     </div>

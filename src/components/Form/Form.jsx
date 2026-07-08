@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import Textarea from '../Textarea/Textarea';
 import styles from './Form.module.css';
 
 const INITIAL_STATE = {
@@ -21,32 +22,51 @@ const INITIAL_STATE = {
     passwordPlaceholder: 'Create a password',
     confirmPlaceholder: 'Repeat your password',
   },
+  contact: {
+    submitLabel: 'Send Message',
+    namePlaceholder: 'Your name',
+    emailPlaceholder: 'you@example.com',
+    messagePlaceholder: "Tell us what's on your mind…",
+  },
 };
 
 export default function Form({ initialMode = 'login' }) {
   const [mode, setMode] = useState(initialMode);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({
+    name: false,
     email: false,
     password: false,
     confirmPassword: false,
+    message: false,
   });
   const isLogin = mode === 'login';
+  const isRegister = mode === 'register';
+  const isContact = mode === 'contact';
   const state = INITIAL_STATE[mode];
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const nextErrors = {
+      name: isContact ? !name : false,
       email: !email,
-      password: !password,
-      confirmPassword: !isLogin ? !confirmPassword : false,
+      password: isLogin || isRegister ? !password : false,
+      confirmPassword: isRegister ? !confirmPassword : false,
+      message: isContact ? !message : false,
     };
 
-    if (!email || !password || (!isLogin && !confirmPassword) || (!isLogin && password !== confirmPassword)) {
-      if (!isLogin && password && confirmPassword && password !== confirmPassword) {
+    const isInvalidContact = isContact && (!name || !email || !message);
+    const isInvalidLogin = isLogin && (!email || !password);
+    const isInvalidRegister = isRegister && (!email || !password || !confirmPassword);
+    const isPasswordMismatch = isRegister && password && confirmPassword && password !== confirmPassword;
+
+    if (isInvalidContact || isInvalidLogin || isInvalidRegister || isPasswordMismatch) {
+      if (isPasswordMismatch) {
         nextErrors.confirmPassword = true;
       }
 
@@ -54,7 +74,7 @@ export default function Form({ initialMode = 'login' }) {
       return;
     }
 
-    setErrors({ email: false, password: false, confirmPassword: false });
+    setErrors({ name: false, email: false, password: false, confirmPassword: false, message: false });
   };
 
   const handleModeChange = (selectedMode) => {
@@ -67,68 +87,115 @@ export default function Form({ initialMode = 'login' }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.modeSwitcher} role="tablist" aria-label="Authentication mode selector">
-        <button
-          type="button"
-          className={`${styles.tab} ${isLogin ? styles.active : ''}`}
-          onClick={() => handleModeChange('login')}
-          aria-selected={isLogin}
-        >
-          Login
-        </button>
-        <button
-          type="button"
-          className={`${styles.tab} ${!isLogin ? styles.active : ''}`}
-          onClick={() => handleModeChange('register')}
-          aria-selected={!isLogin}
-        >
-          Register
-        </button>
-      </div>
+      {!isContact && (
+        <div className={styles.modeSwitcher} role="tablist" aria-label="Authentication mode selector">
+          <button
+            type="button"
+            className={`${styles.tab} ${isLogin ? styles.active : ''}`}
+            onClick={() => handleModeChange('login')}
+            aria-selected={isLogin}
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className={`${styles.tab} ${!isLogin ? styles.active : ''}`}
+            onClick={() => handleModeChange('register')}
+            aria-selected={!isLogin}
+          >
+            Register
+          </button>
+        </div>
+      )}
 
       <form className={styles.form} noValidate onSubmit={handleSubmit}>
-        <Input
-          id={`${mode}-email`}
-          label="Email or Username"
-          type="email"
-          placeholder={state.emailPlaceholder}
-          value={email}
-          variant={errors.email ? 'input_error' : undefined}
-          onChange={(event) => {
-            setEmail(event.target.value);
-            if (errors.email) setErrors((prev) => ({ ...prev, email: false }));
-          }}
-          autoComplete="email"
-        />
+        {isContact ? (
+          <>
+            <Input
+              id="contact-name"
+              label="Name"
+              placeholder={state.namePlaceholder}
+              value={name}
+              variant={errors.name ? 'input_error' : undefined}
+              onChange={(event) => {
+                setName(event.target.value);
+                if (errors.name) setErrors((prev) => ({ ...prev, name: false }));
+              }}
+            />
 
-        <Input
-          id={`${mode}-password`}
-          label="Password"
-          type="password"
-          placeholder={state.passwordPlaceholder}
-          value={password}
-          variant={errors.password ? 'input_error' : undefined}
-          onChange={(event) => {
-            setPassword(event.target.value);
-            if (errors.password) setErrors((prev) => ({ ...prev, password: false }));
-          }}
-          autoComplete={isLogin ? 'current-password' : 'new-password'}
-        />
+            <Input
+              id="contact-email"
+              label="Email"
+              type="email"
+              placeholder={state.emailPlaceholder}
+              value={email}
+              variant={errors.email ? 'input_error' : undefined}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                if (errors.email) setErrors((prev) => ({ ...prev, email: false }));
+              }}
+              autoComplete="email"
+            />
 
-        {!isLogin && (
-          <Input
-            id="register-password-confirm"
-            label="Confirm Password"
-            type="password"
-            placeholder={state.confirmPlaceholder}
-            value={confirmPassword}
-            variant={errors.confirmPassword ? 'input_error' : undefined}
-            onChange={(event) => {
-              setConfirmPassword(event.target.value);
-              if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: false }));
-            }}
-            autoComplete="new-password"
-          />
+            <Textarea
+              id="contact-message"
+              label="Message"
+              placeholder={state.messagePlaceholder}
+              value={message}
+              variant={errors.message ? 'input_error' : undefined}
+              onChange={(event) => {
+                setMessage(event.target.value);
+                if (errors.message) setErrors((prev) => ({ ...prev, message: false }));
+              }}
+              rows={5}
+            />
+          </>
+        ) : (
+          <>
+            <Input
+              id={`${mode}-email`}
+              label="Email or Username"
+              type="email"
+              placeholder={state.emailPlaceholder}
+              value={email}
+              variant={errors.email ? 'input_error' : undefined}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                if (errors.email) setErrors((prev) => ({ ...prev, email: false }));
+              }}
+              autoComplete="email"
+            />
+
+            <Input
+              id={`${mode}-password`}
+              label="Password"
+              type="password"
+              placeholder={state.passwordPlaceholder}
+              value={password}
+              variant={errors.password ? 'input_error' : undefined}
+              onChange={(event) => {
+                setPassword(event.target.value);
+                if (errors.password) setErrors((prev) => ({ ...prev, password: false }));
+              }}
+              autoComplete={isLogin ? 'current-password' : 'new-password'}
+            />
+
+            {!isLogin && (
+              <Input
+                id="register-password-confirm"
+                label="Confirm Password"
+                type="password"
+                placeholder={state.confirmPlaceholder}
+                value={confirmPassword}
+                variant={errors.confirmPassword ? 'input_error' : undefined}
+                onChange={(event) => {
+                  setConfirmPassword(event.target.value);
+                  if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: false }));
+                }}
+                autoComplete="new-password"
+              />
+            )}
+          </>
         )}
 
         <Button type="submit" size="lg" className={styles.submitButton}>
@@ -136,12 +203,14 @@ export default function Form({ initialMode = 'login' }) {
         </Button>
       </form>
 
-      <div className={styles.footer}>
-        <span>{state.alternateText}</span>
-        <button type="button" className={styles.switchLink} onClick={() => handleModeChange(isLogin ? 'register' : 'login')}>
-          {state.alternateAction}
-        </button>
-      </div>
+      {!isContact && (
+        <div className={styles.footer}>
+          <span>{state.alternateText}</span>
+          <button type="button" className={styles.switchLink} onClick={() => handleModeChange(isLogin ? 'register' : 'login')}>
+            {state.alternateAction}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
