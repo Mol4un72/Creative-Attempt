@@ -1,8 +1,5 @@
 import style from './page.module.css';
-import Header from '../../components/Header/Header';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
-import Textarea from '../../components/Textarea/Textarea';
+import Form from '../../components/Form/Form';
 
 export const metadata = {
   title: 'Contact Us',
@@ -23,14 +20,9 @@ export default function ContactUsPage() {
           <h1 className={style.title}>Contact Us</h1>
           <p className={style.sub}>Have a question, suggestion or want to collaborate? We&apos;d love to hear from you.</p>
 
-          <form className={style.form} noValidate>
-            <Input id="contact-name" placeholder="Your name" label="Name" />
-            <Input id="contact-email" placeholder="you@example.com" label="Email" type="email" autoComplete="email" />
-            <Textarea id="contact-msg" placeholder="Tell us what's on your mind…" label="Message" rows={5} />
-            <Button type="submit" size="lg" style={{ width: '100%' }}>
-              Send Message
-            </Button>
-          </form>
+          <div className={style.form}>
+            <Form initialMode="contact" />
+          </div>
         </section>
       </main>
     </div>

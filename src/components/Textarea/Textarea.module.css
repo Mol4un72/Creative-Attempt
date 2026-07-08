@@ -45,3 +45,21 @@
   background: rgba(0, 229, 255, 0.04);
   box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.12);
 }
+
+.input_error {
+  border-color: #ef4444;
+}
+
+.input_error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
+
+.input_error::placeholder {
+  color: #ef4444;
+}
+
+.input_error:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+}
