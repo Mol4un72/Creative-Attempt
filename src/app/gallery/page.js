@@ -4,26 +4,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Card from '../../components/Card/Card';
 import Link from 'next/link';
 import styles from './page.module.css';
-
-const arts = [
-  { id: 1, name: 'Gigachad', price: null, image: '/img.png' },
-  { id: 2, name: 'Pepe', price: 500, image: '/img.png' },
-  { id: 3, name: 'Doge', price: 750, image: '/img.png' },
-  { id: 4, name: 'Wojak', price: 200, image: '/img.png' },
-  { id: 5, name: 'Nyan Cat', price: 300, image: '/img.png' },
-  { id: 6, name: 'Shiba', price: 900, image: '/img.png' },
-  { id: 7, name: 'Trollface', price: 150, image: '/img.png' },
-  { id: 8, name: 'Rickroll', price: 420, image: '/img.png' },
-  { id: 9, name: 'Drakeposting', price: 600, image: '/img.png' },
-  { id: 10, name: 'Grumpy Cat', price: 850, image: '/img.png' },
-  { id: 11, name: 'Distracted', price: 350, image: '/img.png' },
-  { id: 12, name: 'Success Kid', price: 450, image: '/img.png' },
-];
+import { arts } from '../../data/arts';
 
 const SORT_OPTIONS = [
   { value: 'default', label: 'Default' },
-  { value: 'price-asc', label: 'Price ↑' },
-  { value: 'price-desc', label: 'Price ↓' },
+  { value: 'price-desc', label: 'Price ↑' },
+  { value: 'price-asc', label: 'Price ↓' },
   { value: 'name-asc', label: 'A → Z' },
 ];
 
