@@ -262,15 +262,38 @@
 
 .steps {
   display: flex;
-  justify-content: center;
-  margin: clamp(6rem, 4vw, 10rem) 0;
-  scroll-margin-top: 200px;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  margin-top: clamp(6rem, 4vw, 10rem);
+  margin-bottom: clamp(6rem, 10vw, 10rem);
+  padding: clamp(3rem, 8vw, 2rem) clamp(1.5rem, 5vw, 8rem);
+  background: radial-gradient(circle at top left, rgba(63, 218, 255, 0.18), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(255, 94, 196, 0.12), transparent 20%),
+    rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
 }
 
-.stepsGrid{
-  display:grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: clamp(1rem, 4vw, 6rem);
+.stepsHeader {
+  max-width: 760px;
+  text-align: center;
+}
+
+.stepsTitle {
+  margin: 0;
+  font-size: clamp(1.5rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: 1.02;
+  color: var(--color-text);
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  width: min(1120px, 100%);
 }
 
 /* ===========================================================
@@ -293,6 +316,7 @@
 
 .stepImage {
   display: block;
+  width: clamp(128px, 20vw, 224px);
   height: auto;
   transform: translateY(0);
   transition: transform 0.3s ease;
@@ -329,8 +353,17 @@
   opacity:.18;
 }
 
+.stepsAction{
+  display:flex;
+  justify-content:center;
+}
+
 @media (max-width:768px) {
   .heroActions{
     flex-direction:column;
+  }
+
+  .steps{
+    scroll-margin-top: 100px;
   }
 }

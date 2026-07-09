@@ -53,6 +53,10 @@ export default function Home() {
 
       <section>
         <div id="how-it-works" className={styles.steps} aria-label="How it works">
+          <div className={styles.stepsHeader}>
+            <h2 className={styles.stepsTitle}>Create, list and sell in three easy steps</h2>
+          </div>
+
           <div className={styles.stepsGrid}>
             {HOW_IT_WORKS.map(({ src, alt, step, label }) => (
               <article key={step} className={styles.step}>
@@ -62,6 +66,11 @@ export default function Home() {
                 <span className={styles.stepLabel}>{label}</span>
               </article>
             ))}
+          </div>
+          <div className={styles.stepsAction}>
+            <Link href="/gallery">
+              <Button size="lg">Browse Gallery</Button>
+            </Link>
           </div>
         </div>
       </section>
