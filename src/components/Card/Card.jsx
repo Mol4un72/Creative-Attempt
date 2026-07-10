@@ -29,7 +29,7 @@ export default function Card({ art, variant = "default" }) {
 
       {/* Full variant action area */}
       {isFull && hasPrice && (
-        <Button className={styles.buyBtn} type="button">
+        <Button className={styles.buyBtn} type="button" size="lg">
           Buy
         </Button>
       )}
