@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea';
@@ -48,41 +50,118 @@ export default function Form({ initialMode = 'login' }) {
   const isRegister = mode === 'register';
   const isContact = mode === 'contact';
   const state = INITIAL_STATE[mode];
+  const router = useRouter();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
+    console.log("MODE:", mode);
+console.log("EMAIL:", email);
+  event.preventDefault();
 
-    const nextErrors = {
-      name: isContact ? !name : false,
-      email: !email,
-      password: isLogin || isRegister ? !password : false,
-      confirmPassword: isRegister ? !confirmPassword : false,
-      message: isContact ? !message : false,
-    };
+  const nextErrors = {
+    name: isContact ? !name : false,
+    email: !email,
+    password: isLogin || isRegister ? !password : false,
+    confirmPassword: isRegister ? !confirmPassword : false,
+    message: isContact ? !message : false,
+  };
 
-    const isInvalidContact = isContact && (!name || !email || !message);
-    const isInvalidLogin = isLogin && (!email || !password);
-    const isInvalidRegister = isRegister && (!email || !password || !confirmPassword);
-    const isPasswordMismatch = isRegister && password && confirmPassword && password !== confirmPassword;
+  const isInvalidContact = isContact && (!name || !email || !message);
+  const isInvalidLogin = isLogin && (!email || !password);
+  const isInvalidRegister = isRegister && (!email || !password || !confirmPassword || password.length < 6);
+  const isPasswordMismatch =
+    isRegister && password && confirmPassword && password !== confirmPassword;
 
-    if (isInvalidContact || isInvalidLogin || isInvalidRegister || isPasswordMismatch) {
-      if (isPasswordMismatch) {
-        nextErrors.confirmPassword = true;
-      }
+  if (isInvalidContact || isInvalidLogin || isInvalidRegister || isPasswordMismatch) {
+    if (isPasswordMismatch) {
+      nextErrors.confirmPassword = true;
+    }
 
-      setErrors(nextErrors);
+    if (isRegister && password.length < 6) {
+      nextErrors.password = true;
+    }
+
+    setErrors(nextErrors);
+    return;
+  }
+
+  setErrors({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+    message: false,
+  });
+
+
+  // LOGIN
+  if (isLogin) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.log("Login error:", error.message);
       return;
     }
 
-    setErrors({ name: false, email: false, password: false, confirmPassword: false, message: false });
-  };
+    console.log("Logged in:", data.user);
+
+    router.push("/");
+  }
+
+
+    // REGISTER
+  if (isRegister) {
+    console.log("START REGISTER");
+
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim(),
+      password,
+    });
+
+    if (error) {
+      console.log("Signup error:", error.message);
+      return;
+    }
+
+    const user = data.user;
+
+    if (!user) {
+      console.log("No user created");
+      return;
+    }
+
+    const { error: profileError } = await supabase
+      .from("profiles")
+      .insert({
+        id: user.id,
+        username: email.split("@")[0],
+      });
+
+    if (profileError) {
+      console.log("Profile creation error:", profileError.message);
+      return;
+    }
+
+    router.push("/");
+  }
+};
 
   const handleModeChange = (selectedMode) => {
     setMode(selectedMode);
     setEmail('');
     setPassword('');
     setConfirmPassword('');
-    setErrors({ email: false, password: false, confirmPassword: false });
+    setName('');
+    setMessage('');
+    setErrors({
+      name: false,
+      email: false,
+      password: false,
+      confirmPassword: false,
+      message: false,
+    });
   };
 
   return (
@@ -154,7 +233,7 @@ export default function Form({ initialMode = 'login' }) {
           <>
             <Input
               id={`${mode}-email`}
-              label="Email or Username"
+              label="Email"
               type="email"
               placeholder={state.emailPlaceholder}
               value={email}
