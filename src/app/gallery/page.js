@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Card from '../../components/Card/Card';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -13,24 +13,13 @@ const SORT_OPTIONS = [
   { value: 'name-asc', label: 'A → Z' },
 ];
 
-function useDebounce(value, delay = 300) {
-  const [debounced, setDebounced] = useState(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-
-  return debounced;
-}
-
 export default function GalleryPage() {
   const [rawQuery, setRawQuery] = useState('');
   const [sortBy, setSortBy] = useState('default');
-  const query = useDebounce(rawQuery, 280);
+
 
   const filtered = useMemo(() => {
-    let result = arts.filter((art) => art.image && art.name && art.name.toLowerCase().includes(query.toLowerCase()));
+    let result = arts.filter((art) => art.image && art.name && art.name.toLowerCase());
 
     switch (sortBy) {
       case 'price-asc':
@@ -47,7 +36,7 @@ export default function GalleryPage() {
     }
 
     return result;
-  }, [query, sortBy]);
+  }, [sortBy]);
 
   const handleQuery = useCallback((event) => setRawQuery(event.target.value), []);
   const [isSortOpen, setIsSortOpen] = useState(false);
