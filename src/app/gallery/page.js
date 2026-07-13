@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 import Card from '../../components/Card/Card';
 import Link from 'next/link';
 import styles from './page.module.css';
-import { arts } from '../../data/arts';
+import { supabase } from '../../lib/supabase';
 
 const SORT_OPTIONS = [
   { value: 'default', label: 'Default' },
@@ -14,12 +14,19 @@ const SORT_OPTIONS = [
 ];
 
 export default function GalleryPage() {
+  const [arts, setArts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [rawQuery, setRawQuery] = useState('');
   const [sortBy, setSortBy] = useState('default');
 
 
   const filtered = useMemo(() => {
-    let result = arts.filter((art) => art.image && art.name && art.name.toLowerCase());
+    let result = arts.filter(
+      (art) =>
+        art.image &&
+        art.name &&
+        art.name.toLowerCase().includes(rawQuery.toLowerCase())
+    );
 
     switch (sortBy) {
       case 'price-asc':
@@ -36,7 +43,7 @@ export default function GalleryPage() {
     }
 
     return result;
-  }, [sortBy]);
+  }, [arts, rawQuery, sortBy]);
 
   const handleQuery = useCallback((event) => setRawQuery(event.target.value), []);
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -45,6 +52,45 @@ export default function GalleryPage() {
     setSortBy(value);
     setIsSortOpen(false);
   };
+
+useEffect(() => {
+  loadArts();
+}, []);
+
+
+async function loadArts() {
+  const { data, error } = await supabase
+    .from("arts")
+    .select("*")
+    .order("id", {
+      ascending: false,
+    });
+
+
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+
+  if (error) {
+    setLoading(false);
+    return;
+  }
+
+
+  const formatted = data.map((art) => ({
+    id: art.id,
+    name: art.name,
+    price: art.price,
+    image: art.image_url,
+  }));
+
+
+  console.log("FORMATTED:", formatted);
+
+
+  setArts(formatted);
+  setLoading(false);
+}
 
   return (
     <div className={styles.page}>
