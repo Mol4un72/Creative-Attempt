@@ -7,6 +7,7 @@ import CreateCard from "../../components/CreateCard/CreateCard";
 
 export default function CreatePage() {
   const [image, setImage] = useState(null);
+  const [imageBlob, setImageBlob] = useState(null);
   const [file, setFile] = useState(null);
   const [cropOpen, setCropOpen] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -98,7 +99,7 @@ export default function CreatePage() {
           </div>
         ) : (
           <>
-            <CreateCard image={image} />
+            <CreateCard image={image} blob={imageBlob} />
 
             <button
               className={styles.changeBtn}
@@ -122,6 +123,7 @@ export default function CreatePage() {
           }}
           onSave={(blob) => {
             setImage(URL.createObjectURL(blob));
+            setImageBlob(blob);
             setCropOpen(false);
           }}
         />
