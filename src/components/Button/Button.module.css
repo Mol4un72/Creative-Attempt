@@ -18,8 +18,7 @@
     box-shadow var(--transition),
     filter var(--transition);
   width: clamp(216px, 20vw, 328px);
-  min-height: clamp(44px, 5vw, 56px);
-  padding-inline: clamp(1rem, 2.5vw, 2.4rem);
+  min-height: clamp(44px, 5vw, 48px);
 }
 
 .button::after {

@@ -6,8 +6,8 @@
 .modeSwitcher {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.25rem;
+  gap: 1.75rem;
+  padding: 0.30rem;
   border-radius: 9999px;
   background: #f3f4f6;
 }
@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: center;
   min-width: 120px;
-  padding: 0.85rem 1rem;
+  height: clamp(40px, 3vw, 48px);
   border-radius: 9999px;
   color: #4b5563;
   font-weight: 600;

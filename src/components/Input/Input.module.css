@@ -13,8 +13,7 @@
 }
 
 .input {
-  width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.70rem 1rem;
   border-radius: var(--radius-sm);
   border: 1.5px solid var(--color-border);
   background: rgba(255, 255, 255, 0.04);
@@ -58,6 +57,7 @@
 
 .input_error {
   border-color: #ef4444;
+  color: #ef4444;
 }
 
 .input_error:focus {
@@ -70,6 +70,5 @@
 }
 
 .input_error:hover {
-  color: #ef4444;
   border-color: #ef4444;
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "../../../lib/supabase";
+import { useRouter } from "next/navigation";
 import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import styles from "./settings.module.css";
@@ -14,13 +15,13 @@ export default function SettingsPage() {
   const [avatarFile, setAvatarFile] = useState(null);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     loadProfile();
   }, []);
 
   async function loadProfile() {
-
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -178,15 +179,23 @@ export default function SettingsPage() {
 
   }
 
+  async function logout() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.log("LOGOUT ERROR:", error);
+      alert(error.message);
+      return;
+    }
+
+    router.push("/login");
+  }
+
   return (
     <div className={styles.page}>
-
       <main className={styles.main}>
-
         <section className={styles.leftCol}>
-
           <div className={styles.avatarWrap}>
-
             <div
               className={styles.avatar}
               style={
@@ -215,6 +224,10 @@ export default function SettingsPage() {
           <h2 className={styles.nick}>
             {nickname}
           </h2>
+
+          <p className={styles.logout} onClick={logout}>
+            Logout
+          </p>
 
           <p className={styles.help}>
             Manage your public profile and security settings.

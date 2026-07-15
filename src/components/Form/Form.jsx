@@ -93,24 +93,37 @@ const handleSubmit = async (event) => {
 
 
   // LOGIN
-  if (isLogin) {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+if (isLogin) {
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    setErrors({
+      name: false,
+      email: true,
+      password: true,
+      confirmPassword: false,
+      message: false,
     });
 
-    if (error) {
-      console.log("Login error:", error.message);
-      return;
-    }
-
-    console.log("Logged in:", data.user);
-
-    router.push("/");
+    return;
   }
 
+  setErrors({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+    message: false,
+  });
 
-    // REGISTER
+  window.location.href = "/profile";
+  return;
+}
+
+  // REGISTER
   if (isRegister) {
     console.log("START REGISTER");
 
