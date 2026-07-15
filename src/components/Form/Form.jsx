@@ -100,25 +100,35 @@ const handleSubmit = async (event) => {
   });
 
   // LOGIN
-  if (isLogin) {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+if (isLogin) {
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    setErrors({
+      name: false,
+      email: true,
+      password: true,
+      confirmPassword: false,
+      message: false,
     });
 
-    if (error) {
-      setErrors((prev) => ({
-        ...prev,
-        email: true,
-        password: true,
-      }));
-
-      return;
-    }
-
-    window.location.href = "/profile";
     return;
   }
+
+  setErrors({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+    message: false,
+  });
+
+  window.location.href = "/profile";
+  return;
+}
 
   // REGISTER
   if (isRegister) {
