@@ -58,14 +58,12 @@ export default async function CardPage({ params }) {
     );
   }
 
-
   const art = {
     id: data.id,
     name: data.name,
     price: data.price,
     image: data.image_url,
   };
-
 
   return (
     <div className={styles.page}>
@@ -77,7 +75,6 @@ export default async function CardPage({ params }) {
         >
           ← Back to Gallery
         </Link>
-
 
         <Card
           variant="full"

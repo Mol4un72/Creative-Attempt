@@ -27,10 +27,10 @@ export default function Home() {
 
           <div className={styles.heroActions}>
             <Link href="/gallery">
-              <Button size="lg">Browse Gallery</Button>
+              <Button size="md">Browse Gallery</Button>
             </Link>
             <Link href="#learn-more">
-              <Button size="lg" variant="secondary">Learn More</Button>
+              <Button size="md" variant="secondary">Learn More</Button>
             </Link>
           </div>
         </div>

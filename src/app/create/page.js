@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Button from "@/components/Button/Button";
 import styles from "./page.module.css";
 import CropModal from "../../components/CropModal/CropModal";
 import CreateCard from "../../components/CreateCard/CreateCard";
@@ -101,7 +102,7 @@ export default function CreatePage() {
           <>
             <CreateCard image={image} blob={imageBlob} />
 
-            <button
+            <p
               className={styles.changeBtn}
               onClick={() => {
                 setImage(null);
@@ -109,7 +110,7 @@ export default function CreatePage() {
               }}
             >
               ← Change image
-            </button>
+            </p>
           </>
         )}
       </main>
