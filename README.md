@@ -4,6 +4,8 @@ Creative Attempt is a modern platform for buying, selling, and collecting digita
 
 The platform is designed as an intuitive marketplace for digital art, where each card is more than just an image — it becomes part of a personal collection that can be sold, traded, or preserved as a valuable item.
 
+https://creative-attempt.vercel.app/
+
 ## Key Features
 
 - Upload your own images
