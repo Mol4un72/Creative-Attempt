@@ -193,9 +193,13 @@ export default function SettingsPage() {
 
   return (
     <div className={styles.page}>
+
       <main className={styles.main}>
+
         <section className={styles.leftCol}>
+
           <div className={styles.avatarWrap}>
+
             <div
               className={styles.avatar}
               style={
@@ -236,7 +240,7 @@ export default function SettingsPage() {
         </section>
 
         <section className={styles.rightCol}>
-
+          
           <div className={styles.tabs}>
 
             <button
@@ -260,18 +264,14 @@ export default function SettingsPage() {
             >
               Security
             </button>
-
           </div>
 
           <div className={styles.panel}>
-
             {tab === "account" && (
-
               <form
                 onSubmit={saveAccount}
                 className={styles.form}
               >
-
                 <Input
                   id="nickname"
                   label="Nickname"
@@ -281,7 +281,7 @@ export default function SettingsPage() {
                   }
                 />
 
-                <Button type="submit">
+                <Button type="submit" size="sm">
                   Save changes
                 </Button>
 
@@ -316,7 +316,7 @@ export default function SettingsPage() {
                   }
                 />
 
-                <Button type="submit">
+                <Button type="submit" size="sm">
                   Save security
                 </Button>
 
