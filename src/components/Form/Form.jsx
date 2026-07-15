@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { supabase } from "../../lib/supabase";
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea';
@@ -49,33 +50,102 @@ export default function Form({ initialMode = 'login' }) {
   const isContact = mode === 'contact';
   const state = INITIAL_STATE[mode];
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    const nextErrors = {
-      name: isContact ? !name : false,
-      email: !email,
-      password: isLogin || isRegister ? !password : false,
-      confirmPassword: isRegister ? !confirmPassword : false,
-      message: isContact ? !message : false,
-    };
+  const nextErrors = {
+    name: isContact ? !name : false,
+    email: !email,
+    password: isLogin || isRegister ? !password : false,
+    confirmPassword: isRegister ? !confirmPassword : false,
+    message: isContact ? !message : false,
+  };
 
-    const isInvalidContact = isContact && (!name || !email || !message);
-    const isInvalidLogin = isLogin && (!email || !password);
-    const isInvalidRegister = isRegister && (!email || !password || !confirmPassword);
-    const isPasswordMismatch = isRegister && password && confirmPassword && password !== confirmPassword;
+  const isInvalidContact =
+    isContact && (!name || !email || !message);
 
-    if (isInvalidContact || isInvalidLogin || isInvalidRegister || isPasswordMismatch) {
-      if (isPasswordMismatch) {
-        nextErrors.confirmPassword = true;
-      }
+  const isInvalidLogin =
+    isLogin && (!email || !password);
 
-      setErrors(nextErrors);
+  const isInvalidRegister =
+    isRegister &&
+    (!email || !password || !confirmPassword);
+
+  const isPasswordMismatch =
+    isRegister &&
+    password &&
+    confirmPassword &&
+    password !== confirmPassword;
+
+  if (
+    isInvalidContact ||
+    isInvalidLogin ||
+    isInvalidRegister ||
+    isPasswordMismatch
+  ) {
+    if (isPasswordMismatch) {
+      nextErrors.confirmPassword = true;
+    }
+
+    setErrors(nextErrors);
+    return;
+  }
+
+  setErrors({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+    message: false,
+  });
+
+  // LOGIN
+  if (isLogin) {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setErrors((prev) => ({
+        ...prev,
+        email: true,
+        password: true,
+      }));
+
       return;
     }
 
-    setErrors({ name: false, email: false, password: false, confirmPassword: false, message: false });
-  };
+    window.location.href = "/profile";
+    return;
+  }
+
+  // REGISTER
+  if (isRegister) {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      setErrors((prev) => ({
+        ...prev,
+        email: true,
+        password: true,
+      }));
+
+      return;
+    }
+
+    window.location.href = "/profile";
+    return;
+  }
+
+  // CONTACT
+  if (isContact) {
+    alert("Message sent!");
+  }
+};
 
   const handleModeChange = (selectedMode) => {
     setMode(selectedMode);
