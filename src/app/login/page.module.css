@@ -39,6 +39,11 @@
   margin-top: -0.5rem;
 }
 
+.heading, .sub {
+  display: flex;
+  justify-content: center;
+}
+
 /* ─── Social Providers ──────────────────────────────────────────── */
 .socials {
   display: flex;

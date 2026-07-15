@@ -52,9 +52,8 @@ export default function Form({ initialMode = 'login' }) {
   const state = INITIAL_STATE[mode];
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
-    console.log("MODE:", mode);
-console.log("EMAIL:", email);
+
+const handleSubmit = async (event) => {
   event.preventDefault();
 
   const nextErrors = {
@@ -121,6 +120,7 @@ console.log("EMAIL:", email);
     });
 
     if (error) {
+
       console.log("Signup error:", error.message);
       return;
     }
